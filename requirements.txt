@@ -1,0 +1,4 @@
+treamlit
+pandas
+requests
+python-dotenv
