@@ -5,9 +5,23 @@ import requests
 import os
 from dotenv import load_dotenv
 
-# Chargement des variables d'environnement
+python# Chargement des variables d'environnement
 load_dotenv()
-LECHAT_API_KEY = st.secrets["api_keys"]["lechat"]
+
+# Essayer de récupérer la clé API de différentes sources
+LECHAT_API_KEY = None
+
+# 1. Essayer de la récupérer depuis les secrets Streamlit
+try:
+    LECHAT_API_KEY = st.secrets["api_keys"]["lechat"]
+except (KeyError, AttributeError):
+    # 2. Si non trouvée, essayer depuis les variables d'environnement
+    LECHAT_API_KEY = os.getenv("LECHAT_API_KEY", "")
+
+# Vérifier si la clé API est configurée
+if not LECHAT_API_KEY:
+    st.error("⚠️ Clé d'API Mistral (Le Chat) non configurée. Veuillez configurer les secrets dans Streamlit Cloud.")
+    LECHAT_API_KEY = st.text_input("Entrez votre clé API Mistral (Le Chat):", type="password")
 
 # Fonction pour générer l'explication d'une expression régulière via l'API Mistral (Le Chat)
 def generer_explication_api(pattern, prompt=""):
