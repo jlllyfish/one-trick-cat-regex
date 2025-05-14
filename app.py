@@ -267,7 +267,7 @@ h1, h2, h3 {
 """, unsafe_allow_html=True)
 
 # Titre principal de l'application
-st.title("One trick Cat RegEx")
+st.title(" 🐱 One trick Cat RegEx")
 
 # Interface divisée en deux colonnes
 col1, col2 = st.columns([1, 1])
